@@ -1,5 +1,7 @@
 package fr.cda.cinemacda.seance;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import fr.cda.cinemacda.film.Film;
 import fr.cda.cinemacda.salle.Salle;
 import fr.cda.cinemacda.ticket.Ticket;
@@ -15,6 +17,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Seance {
     @Id
     @GeneratedValue
