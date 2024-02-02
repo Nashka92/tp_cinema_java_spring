@@ -1,8 +1,11 @@
 package fr.cda.cinemacda.seance;
 
+import fr.cda.cinemacda.seance.dto.SeanceSansFilmNiSalleDto;
 import fr.cda.cinemacda.ticket.dto.TicketSansSeanceDto;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -52,5 +55,12 @@ public class SeanceController {
     public List<TicketSansSeanceDto> findTicketsBySeanceId(@PathVariable Integer id) {
         return seanceService.findTicketsBySeanceId(id);
     }
+
+    // Créer une route permettant de récupérer les séances à une date donnée
+    @GetMapping("/disponible")
+    public List<Seance> findSeancesByDate(@RequestParam("date") LocalDate date) {
+        return seanceService.findSeancesByDate(date);
+    }
+
 
 }
