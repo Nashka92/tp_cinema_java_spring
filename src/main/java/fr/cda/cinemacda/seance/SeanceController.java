@@ -1,5 +1,6 @@
 package fr.cda.cinemacda.seance;
 
+import fr.cda.cinemacda.ticket.dto.TicketSansSeanceDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,4 +46,11 @@ public class SeanceController {
     public Seance saveSeance(@RequestBody Seance seance) {
         return seanceService.saveSeance(seance);
     }
+
+    //Créer une route permettant de récupérer les tickets réservés pour une séance
+    @GetMapping("/{id}/tickets")
+    public List<TicketSansSeanceDto> findTicketsBySeanceId(@PathVariable Integer id) {
+        return seanceService.findTicketsBySeanceId(id);
+    }
+
 }

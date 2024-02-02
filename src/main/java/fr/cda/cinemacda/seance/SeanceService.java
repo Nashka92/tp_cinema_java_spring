@@ -1,6 +1,7 @@
 package fr.cda.cinemacda.seance;
 
 import fr.cda.cinemacda.salle.Salle;
+import fr.cda.cinemacda.ticket.dto.TicketSansSeanceDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -47,6 +48,18 @@ public class SeanceService {
     //UPDATE séance
     public Seance updateSeance(Seance seance) {
         return seanceReposity.save(seance);
+    }
+
+    // Créer une route permettant de récupérer les tickets réservés pour une séance
+    public List<TicketSansSeanceDto> findTicketsBySeanceId(Integer id) {
+        Seance seance = this.findSeanceById(id);
+        return seance.getTickets().stream().map(ticket -> {
+            TicketSansSeanceDto ticketSansSeanceDto = new TicketSansSeanceDto();
+            ticketSansSeanceDto.setId(ticket.getId());
+            ticketSansSeanceDto.setNomClient(ticket.getNomClient());
+            ticketSansSeanceDto.setNombrePlaces(ticket.getNombrePlaces());
+            return ticketSansSeanceDto;
+        }).toList();
     }
 
 }
